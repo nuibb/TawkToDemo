@@ -1,6 +1,7 @@
 {
-  "colors" : [
+  "images" : [
     {
+      "filename" : "notes_icon.svg",
       "idiom" : "universal"
     }
   ],
