@@ -71,52 +71,54 @@ struct ProfileView: View {
                     .padding(.top, 8)
                     .padding(.bottom)
                     
-                    VStack(alignment: .leading, spacing: 8) {
-                        if let name = viewModel.user.name, !name.isEmpty {
-                            HStack(spacing: 4) {
-                                Text("Name: ")
-                                    .defaultModifier(style: .callout, color: .textColor)
-                                
-                                Text(name)
-                                    .boldModifier(style: .callout, color: .textColor)
-                                
-                                Spacer()
+                    if viewModel.user.name != nil || viewModel.user.company != nil || viewModel.user.blog != nil {
+                        VStack(alignment: .leading, spacing: 8) {
+                            if let name = viewModel.user.name, !name.isEmpty {
+                                HStack(spacing: 4) {
+                                    Text("Name: ")
+                                        .defaultModifier(style: .callout, color: .textColor)
+                                    
+                                    Text(name)
+                                        .boldModifier(style: .callout, color: .textColor)
+                                    
+                                    Spacer()
+                                }
+                            }
+                            
+                            if let company = viewModel.user.company, !company.isEmpty {
+                                HStack(spacing: 4) {
+                                    Text("Company: ")
+                                        .defaultModifier(style: .callout, color: .textColor)
+                                    
+                                    Text(company)
+                                        .boldModifier(style: .callout, color: .textColor)
+                                    
+                                    Spacer()
+                                }
+                            }
+                            
+                            if let blog = viewModel.user.blog, !blog.isEmpty {
+                                HStack(spacing: 4) {
+                                    Text("Blog: ")
+                                        .defaultModifier(style: .callout, color: .textColor)
+                                    
+                                    Text(blog)
+                                        .boldModifier(style: .callout, color: .textColor)
+                                    
+                                    Spacer()
+                                }
                             }
                         }
-                        
-                        if let company = viewModel.user.company, !company.isEmpty {
-                            HStack(spacing: 4) {
-                                Text("Company: ")
-                                    .defaultModifier(style: .callout, color: .textColor)
-                                
-                                Text(company)
-                                    .boldModifier(style: .callout, color: .textColor)
-                                
-                                Spacer()
-                            }
-                        }
-                        
-                        if let blog = viewModel.user.blog, !blog.isEmpty {
-                            HStack(spacing: 4) {
-                                Text("Blog: ")
-                                    .defaultModifier(style: .callout, color: .textColor)
-                                
-                                Text(blog)
-                                    .boldModifier(style: .callout, color: .textColor)
-                                
-                                Spacer()
-                            }
-                        }
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(
+                                    Color.textColor,
+                                    lineWidth: 1
+                                )
+                        )
+                        .padding()
                     }
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(
-                                Color.textColor,
-                                lineWidth: 1
-                            )
-                    )
-                    .padding()
                     
                     VStack(alignment: .leading, spacing: 8) {
                         Text(Constants.notes)

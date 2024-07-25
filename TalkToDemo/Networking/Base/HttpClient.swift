@@ -10,7 +10,7 @@ import Foundation
 protocol HttpClient: DataParser, NetworkMonitorService {
     func getFrom<T: DecodableCodingKeys>(endpoint: EndPoint, model: T.Type) async -> Swift.Result<[T], RequestError>
     
-    func getFor<T: DecodableCodingKeys>(endpoint: EndPoint, model: T.Type) async -> Swift.Result<T, RequestError>
+    func getFrom<T: DecodableCodingKeys>(endpoint: EndPoint, model: T.Type) async -> Swift.Result<T, RequestError>
     
     func postFor<T: DecodableCodingKeys, T2: Encodable>(endpoint: EndPoint, payload: T2, model: T.Type) async -> Swift.Result<T, RequestError>
     
@@ -34,15 +34,11 @@ extension HttpClient {
         }
     }
     
-    func getFor<T: DecodableCodingKeys>(endpoint: EndPoint, model: T.Type) async -> Swift.Result<T, RequestError> {
+    func getFrom<T: DecodableCodingKeys>(endpoint: EndPoint, model: T.Type) async -> Swift.Result<T, RequestError> {
         guard let url = endpoint.components.url else { return .failure(.invalidURL) }
         
-        var request = URLRequest(url: url)
-        request.httpMethod = endpoint.method.rawValue
-        request.allHTTPHeaderFields = endpoint.header
-        
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await URLSession.shared.data(from: url)
             return parse(endpoint: endpoint, data: data, response: response)
         } catch (let error ) {
             Logger.log(type: .error, "[API][Request] failed: \(error.localizedDescription)")

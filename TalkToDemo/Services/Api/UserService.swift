@@ -10,7 +10,7 @@ import Foundation
 protocol UserService: HttpClient {
     func getUsers(page: Int, size: Int) async -> Swift.Result<[UserData], RequestError>
     
-    func getUser(userName: String) async -> Swift.Result<UserData, RequestError>
+    func getUser(userName: String) async -> Swift.Result<UserDetails, RequestError>
 }
 
 extension UserService {
@@ -25,11 +25,11 @@ extension UserService {
         }
     }
     
-    func getUser(userName: String) async -> Swift.Result<UserData, RequestError> {
+    func getUser(userName: String) async -> Swift.Result<UserDetails, RequestError> {
         if self.networkMonitor.isConnected {
-            return await getFor(
+            return await getFrom(
                 endpoint: UserEndPoint.user(userName: userName),
-                model: UserData.self
+                model: UserDetails.self
             )
         } else {
             return .failure(.networkNotAvailable)
