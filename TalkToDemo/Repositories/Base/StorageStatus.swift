@@ -21,23 +21,23 @@ enum StorageStatus: Error, CustomStringConvertible {
     var description: String {
         switch self {
         case .succeed:
-            return "Successfully done!"
+            return Constants.savingSucceed
         case .savingFailed:
-            return "Failed to save in DB!"
+            return Constants.savingFailed
         case .insertionFailed:
-            return "Failed to insert in DB!"
+            return Constants.insertionFailed
         case .loadingFailed:
-            return "Failed to load from DB!"
+            return Constants.loadingFailed
         case .editingFailed:
-            return "Failed to edit the record in DB!"
+            return Constants.editingFailed
         case .deletingFailed:
-            return "Failed to delete the record from DB!"
+            return Constants.deletingFailed
         case .existsInDB:
-            return "Record already exists in DB."
+            return Constants.existsInDB
         case .notExistsInDB:
-            return "Record doesn't exists in DB to edit or delete!"
+            return Constants.notExistsInDB
         default:
-            return "Unknown error"
+            return Constants.defaultError
         }
     }
 }

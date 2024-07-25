@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+extension String {
+    var trimmed: String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    func replace(with text: String) -> String {
+        return self.replacingOccurrences(of: "{@}", with: text)
+    }
+}
