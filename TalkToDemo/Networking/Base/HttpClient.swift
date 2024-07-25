@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HttpClient: DataParser, NetworkMonitorService {
-    func getFrom<T: DecodableCodingKeys>(endpoint: EndPoint, model: T.Type) async -> Swift.Result<T, RequestError>
+    func getFrom<T: DecodableCodingKeys>(endpoint: EndPoint, model: T.Type) async -> Swift.Result<[T], RequestError>
     
     func getFor<T: DecodableCodingKeys>(endpoint: EndPoint, model: T.Type) async -> Swift.Result<T, RequestError>
     
@@ -22,7 +22,7 @@ protocol HttpClient: DataParser, NetworkMonitorService {
 }
 
 extension HttpClient {
-    func getFrom<T: DecodableCodingKeys>(endpoint: EndPoint, model: T.Type) async -> Swift.Result<T, RequestError> {
+    func getFrom<T: DecodableCodingKeys>(endpoint: EndPoint, model: T.Type) async -> Swift.Result<[T], RequestError> {
         guard let url = endpoint.components.url else { return .failure(.invalidURL) }
         
         do {

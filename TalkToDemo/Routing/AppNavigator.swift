@@ -7,13 +7,12 @@
 
 import Foundation
 import UIKit
-//import GSMessages
 
 protocol AppNavigator {
     func hideNavigationTitle()
     func navigate(_ viewController: UIViewController)
     func present(_ viewController: UIViewController)
-    //func showFeedback(_ message: String, type: GSMessageType)
+    func showFeedback(_ message: String)
 }
 
 extension AppNavigator {
@@ -27,9 +26,15 @@ extension AppNavigator {
         UIApplication.topViewController()?.present(viewController, animated: true)
     }
     
-//    func showFeedback(_ message: String, type: GSMessageType) {
-//        UIApplication.topViewController()?.showMessage(message, type: .error)
-//    }
+    func showFeedback(_ message: String) {
+        let controller = HostingController(
+            rootView: FeedbackView(message: message)
+        )
+        controller.view.backgroundColor = UIColor.textColor.withAlphaComponent(0.9)
+        controller.modalPresentationStyle = .overCurrentContext
+        controller.modalTransitionStyle = .crossDissolve
+        self.present(controller)
+    }
 
     func hideNavigationTitle() {
         UIApplication.topViewController()?.navigationController?.navigationBar.topItem?.title = ""

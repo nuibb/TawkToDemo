@@ -1,7 +1,32 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Blog: " : {
 
+    },
+    "Company: " : {
+
+    },
+    "Followers: %lld" : {
+
+    },
+    "Following: %lld" : {
+
+    },
+    "Name: " : {
+
+    },
+    "profileNavTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User"
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }
