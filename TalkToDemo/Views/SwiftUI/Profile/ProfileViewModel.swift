@@ -26,12 +26,14 @@ final class ProfileViewModel: ObservableObject, ResponseHandler {
         self.remoteDataProvider = remoteDataProvider
         self.localDataProvider = localDataProvider
         
+        self.getLocalUser()
+        
         Utils.after(seconds: 1.0) { [weak self] in
             guard let self else { return }
             self.getUser()
         }
         
-        addObservers()
+        self.addObservers()
     }
     
     private func addObservers() {
@@ -45,6 +47,19 @@ final class ProfileViewModel: ObservableObject, ResponseHandler {
             }.store(in: &cancellationTokens)
     }
     
+    private func getLocalUser() {
+        Task { [weak self] in
+            guard let self = self else { return }
+            let user = await self.localDataProvider.fetchUser(byIdentifier: self.user.id)
+            if let user = user {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.user = user
+                }
+            }
+        }
+    }
+    
     private func getUser() {
         self.isRequesting = true
         
@@ -56,7 +71,9 @@ final class ProfileViewModel: ObservableObject, ResponseHandler {
             await self.handleResponse(response: response) { [weak self] result in
                 guard let self else { return }
                 //Logger.log(type: .info, "[User]: \(result)")
+                let notes = self.user.notes
                 self.user = result
+                self.user.notes = notes
             }
         }
     }
@@ -66,7 +83,12 @@ final class ProfileViewModel: ObservableObject, ResponseHandler {
         
         Task { [weak self] in
             guard let self = self else { return }
-            await self.localDataProvider.updateUser(record: user)
+            let result = await self.localDataProvider.updateUser(record: self.user)
+            if result == .succeed {
+                DispatchQueue.main.async {
+                    RoutingService.shared.showFeedback(Constants.noteSavingSucceed)
+                }
+            }
         }
     }
 }

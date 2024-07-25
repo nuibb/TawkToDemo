@@ -42,6 +42,7 @@ enum Constants {
     static let deletingFailed = "Failed to delete the record from DB!"
     static let existsInDB = "Record already exists in DB."
     static let notExistsInDB = "Record doesn't exists in DB to edit or delete!"
+    static let noteSavingSucceed = "Successfully saved notes!"
     
     /// Others
     static let notes = "Notes"

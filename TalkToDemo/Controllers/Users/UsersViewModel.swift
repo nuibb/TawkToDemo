@@ -19,6 +19,7 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
     
     var toastMessage: String = ""
     var pageSize = 10
+    var loadMoreData: Bool = false
     
     private var cancellationTokens = Set<AnyCancellable>()
     private let remoteDataProvider: UserService
@@ -74,27 +75,32 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
         
         Task { [weak self] in
             guard let self else { return }
-            
             let response = await self.remoteDataProvider.getUsers(
                 page: pageIndex,
                 size: pageSize
             )
             await self.handleResponse(response: response) { [weak self] result in
-                guard let self , !result.isEmpty
-                else { return }
-                
+                guard let self, !result.isEmpty else { return }
+                self.loadMoreData = true
                 Logger.log(type: .info, "[Users] count: \(result.count)")
                 
-                if pageIndex > 0 && !self.users.isEmpty {
-                    self.users.append(contentsOf: result)
-                } else {
-                    self.users = result
-                }
+                let initialCount = self.users.count
+                self.addUniqueUsers(result)
                 
-                self.filteredUsers = self.users
-
-                /// Save in DB
-                self.addLocalUsers(users)
+                if self.users.count > initialCount {
+                    self.filteredUsers = self.users
+                    self.reload = true
+                    self.addLocalUsers(result)
+                }
+            }
+        }
+    }
+    
+    private func addUniqueUsers(_ newUsers: [User]) {
+        let existingUserIDs = Set(self.users.map { $0.id })
+        for user in newUsers {
+            if !existingUserIDs.contains(user.id) {
+                self.users.append(user)
             }
         }
     }

@@ -12,6 +12,10 @@ extension View {
     func conditionalFrame(linesAllowed: Int) -> some View {
         self.modifier(ConditionalFrameModifier(linesAllowed: linesAllowed))
     }
+    
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }
 
 extension View {
