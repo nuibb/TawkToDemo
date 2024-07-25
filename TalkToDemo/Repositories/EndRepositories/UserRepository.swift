@@ -10,9 +10,10 @@ import CoreData
 
 protocol UserRepository: BaseRepository {
     @discardableResult func createUser(record: T1) async -> StorageStatus
-    @discardableResult func updateUser(record: T1) async -> StorageStatus
     @discardableResult func deleteUser(byIdentifier id: String) async -> StorageStatus
     
+    func updateUser(record: T1) async -> StorageStatus
+    func updateReadStatus(record: T1) async -> StorageStatus
     func fetchUsers() async -> [T1]
     func fetchUser(byIdentifier id: String) async -> T1?
 }
@@ -55,8 +56,18 @@ extension UserRepository {
         return user
     }
     
-    @discardableResult
     func updateUser(record: T1) async -> StorageStatus {
+        debugPrint(record.notes)
+        let predicate = NSPredicate(format: "(id = %@)", record.id as CVarArg)
+        let results = await self.fetch(T.self, with: predicate)
+        
+        guard !results.isEmpty, let cdUser = results.first else { return .notExistsInDB }
+        cdUser.notes = record.notes
+        await self.save()
+        return .succeed
+    }
+    
+    func updateReadStatus(record: T1) async -> StorageStatus {
         let predicate = NSPredicate(format: "(id = %@)", record.id as CVarArg)
         let results = await self.fetch(T.self, with: predicate)
         

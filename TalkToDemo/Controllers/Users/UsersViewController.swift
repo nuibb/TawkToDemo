@@ -114,7 +114,7 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: user)
         
         if let last = self.viewModel.users.last, user.id == last.id,
-           !spinner.isAnimating {
+           !spinner.isAnimating, viewModel.loadMoreData {
             viewModel.pageIndex += 1
         }
         
@@ -125,10 +125,10 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
 extension UsersViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard indexPath.row < viewModel.users.count, !spinner.isAnimating
+        guard indexPath.row < viewModel.filteredUsers.count, !spinner.isAnimating
         else { return }
         
-        let user = self.viewModel.users[indexPath.row]
+        let user = self.viewModel.filteredUsers[indexPath.row]
         viewModel.updateReadStatus(user)
         RoutingService.shared.navigateToProfileView(user)
     }

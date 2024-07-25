@@ -28,7 +28,7 @@ class NormalCell: UITableViewCell, UserCell {
         }
         
         self.userName.text = user.username
-        self.userDetails.text = user.details
+        self.userDetails.text = user.id
         
         if user.seen {
             self.avatar.alpha = 0.3

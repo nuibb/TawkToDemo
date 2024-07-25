@@ -30,7 +30,7 @@ extension CDUser {
 
 }
 
-extension CDUser: User {
+extension CDUser: Identifiable, User {
     var followers: Int? { Int(followers_count) }
     var following: Int? { Int(following_count) }
 }

@@ -7,10 +7,11 @@
 
 import Foundation
 
-extension UserData: User {
+extension UserData: Identifiable, User {
     var id: String {
-        guard let userId = userId else { return UUID().uuidString }
-        return String(userId)
+        let userId = userId ?? 0
+        let uniqueId = String(userId) + username
+        return uniqueId == "0" ? UUID().uuidString : uniqueId
     }
     var name: String? { nil }
     var username: String { login ?? "" }
@@ -30,10 +31,11 @@ extension UserData: User {
     }
 }
 
-extension UserDetails: User {
+extension UserDetails: Identifiable, User {
     var id: String {
-        guard let userId = userId else { return UUID().uuidString }
-        return String(userId)
+        let userId = userId ?? 0
+        let uniqueId = String(userId) + username
+        return uniqueId == "0" ? UUID().uuidString : uniqueId
     }
     var username: String { login ?? "" }
     var avatar: String? { avatarUrl }

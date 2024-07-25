@@ -41,12 +41,12 @@ extension UsersViewModel {
         
         Task { [weak self] in
             guard let self = self else { return }
-            let result = await self.localDataProvider.updateUser(record: user)
+            let result = await self.localDataProvider.updateReadStatus(record: user)
             if result == .succeed {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    if let index = self.users.firstIndex(where: { $0.id == user.id }) {
-                        self.users[index].seen = true
+                    if let index = self.filteredUsers.firstIndex(where: { $0.id == user.id }) {
+                        self.filteredUsers[index].seen = true
                         self.reload = true
                     }
                 }
