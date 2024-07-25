@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class ProfileViewModel: ObservableObject, ResponseHandler {
     @Published var user: User
@@ -15,6 +16,7 @@ final class ProfileViewModel: ObservableObject, ResponseHandler {
     var toastMessage: String = ""
     let remoteDataProvider: UserService
     private let localDataProvider: UserRepository
+    private var cancellationTokens = Set<AnyCancellable>()
     
     init(user: User,
         remoteDataProvider: UserService,
@@ -28,6 +30,19 @@ final class ProfileViewModel: ObservableObject, ResponseHandler {
             guard let self else { return }
             self.getUser()
         }
+        
+        addObservers()
+    }
+    
+    private func addObservers() {
+        $showToast
+            .sink { [weak self] newValue in
+                guard let self else { return }
+                if !self.showToast, newValue {
+                    RoutingService.shared.showFeedback(self.toastMessage)
+                    self.showToast = false
+                }
+            }.store(in: &cancellationTokens)
     }
     
     private func getUser() {

@@ -54,7 +54,17 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
                 guard let self else { return }
                 if self.remoteDataProvider.networkMonitor.isConnected != status,
                    self.remoteDataProvider.networkMonitor.isConnected {
-                    self.pageIndex = 0
+                    self.pageIndex = 0 /// probable bug, fix later
+                }
+            }.store(in: &cancellationTokens)
+        
+        /// Show toast
+        $showToast
+            .sink { [weak self] newValue in
+                guard let self else { return }
+                if !self.showToast, newValue {
+                    RoutingService.shared.showFeedback(self.toastMessage)
+                    self.showToast = false
                 }
             }.store(in: &cancellationTokens)
     }
