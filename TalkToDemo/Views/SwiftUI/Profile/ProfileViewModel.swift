@@ -55,7 +55,7 @@ final class ProfileViewModel: ObservableObject, ResponseHandler {
             
             await self.handleResponse(response: response) { [weak self] result in
                 guard let self else { return }
-                Logger.log(type: .info, "[User]: \(result)")
+                //Logger.log(type: .info, "[User]: \(result)")
                 self.user = result
             }
         }
