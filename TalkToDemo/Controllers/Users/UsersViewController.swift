@@ -100,6 +100,10 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        guard indexPath.row < viewModel.filteredUsers.count else {
+            return UITableViewCell()
+        }
+        
         let user = viewModel.filteredUsers[indexPath.row]
         let cellIdentifier = cellIdentifierFor(user: user, at: indexPath)
         

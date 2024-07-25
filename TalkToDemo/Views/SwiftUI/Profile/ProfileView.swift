@@ -15,9 +15,8 @@ struct ProfileView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
-            VStack(alignment: .center, spacing: 16) {
-                ScrollView(.vertical, showsIndicators: false) {
-                    
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .center, spacing: 16) {
                     if let url = viewModel.user.avatar, !url.isEmpty,
                        let imageURL = URL(string: url) {
                         
@@ -71,7 +70,7 @@ struct ProfileView: View {
                     .padding(.top, 8)
                     .padding(.bottom)
                     
-                    if viewModel.user.name != nil || viewModel.user.company != nil || viewModel.user.blog != nil {
+                    if shouldDetailSectionVisible {
                         VStack(alignment: .leading, spacing: 8) {
                             if let name = viewModel.user.name, !name.isEmpty {
                                 HStack(spacing: 4) {
@@ -172,6 +171,17 @@ extension ProfileView {
             } catch {
                 Logger.log(type: .error, "Image download failed with error: \(error.localizedDescription)")
             }
+        }
+    }
+    
+    var shouldDetailSectionVisible: Bool {
+        let name =  viewModel.user.name ?? ""
+        let company =  viewModel.user.company ?? ""
+        let blog =  viewModel.user.blog ?? ""
+        if name.isEmpty, company.isEmpty, blog.isEmpty {
+            return false
+        } else {
+            return true
         }
     }
 }

@@ -74,14 +74,12 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
         
         Task { [weak self] in
             guard let self else { return }
-            
             let response = await self.remoteDataProvider.getUsers(
                 page: pageIndex,
                 size: pageSize
             )
             await self.handleResponse(response: response) { [weak self] result in
-                guard let self , !result.isEmpty
-                else { return }
+                guard let self, !result.isEmpty else { return }
                 
                 Logger.log(type: .info, "[Users] count: \(result.count)")
                 
@@ -92,6 +90,7 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
                 }
                 
                 self.filteredUsers = self.users
+                self.reload = true
 
                 /// Save in DB
                 self.addLocalUsers(users)

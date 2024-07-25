@@ -13,14 +13,24 @@ class InvertedCell: UITableViewCell, UserCell {
     @IBOutlet weak var userDetails: UILabel!
 
     func configure(with user: User) {
-        let image = UIImage(systemName: "pencil.circle.fill")
-        if let image = image, let invertedImage = image.invertImage {
-            self.avatar.image = invertedImage
+        if let url = user.avatar, !url.isEmpty,
+           let imageURL = URL(string: url) {
+            
+            /// Show cached image first if available
+            if let image = imageURL.loadImage() {
+                if let invertedImage = image.invertImage {
+                    self.avatar.image = invertedImage
+                } else {
+                    self.avatar.image = image
+                }
+            } else {
+                self.downloadAndCache(imageURL)
+            }
+            
         } else {
-            self.avatar.image = image
+            self.avatar.image = UIImage(named: "avatar")
         }
         
-        self.avatar.backgroundColor = UIColor.text
         self.userName.text = user.username
         self.userDetails.text = user.details
         
@@ -32,6 +42,25 @@ class InvertedCell: UITableViewCell, UserCell {
             self.avatar.alpha = 1.0
             self.userName.alpha = 1.0
             self.userDetails.alpha = 1.0
+        }
+    }
+    
+    private func downloadAndCache(_ url: URL) {
+        Task {
+            do {
+                let image = try await url.downloadImage()
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    if let invertedImage = image.invertImage {
+                        self.avatar.image = invertedImage
+                    } else {
+                        self.avatar.image = image
+                    }
+                }
+                try url.cache(image)
+            } catch {
+                Logger.log(type: .error, "Image download failed with error: \(error.localizedDescription)")
+            }
         }
     }
 }
