@@ -69,7 +69,7 @@
 		525387552C4BD31F00688D62 /* FocusedTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525387542C4BD31F00688D62 /* FocusedTextEditor.swift */; };
 		525387572C4BD33900688D62 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525387562C4BD33900688D62 /* View.swift */; };
 		525387592C4BD38700688D62 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525387582C4BD38700688D62 /* Modifiers.swift */; };
-		5253875B2C4BF7B500688D62 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5253875A2C4BF7B500688D62 /* LoaderView.swift */; };
+		5253875B2C4BF7B500688D62 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5253875A2C4BF7B500688D62 /* FeedbackView.swift */; };
 		525F373B2C520141006DF545 /* UserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525F373A2C520141006DF545 /* UserDetails.swift */; };
 		525F37422C5210A2006DF545 /* CDUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525F37402C5210A2006DF545 /* CDUser+CoreDataClass.swift */; };
 		525F37432C5210A2006DF545 /* CDUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525F37412C5210A2006DF545 /* CDUser+CoreDataProperties.swift */; };
@@ -168,7 +168,7 @@
 		525387542C4BD31F00688D62 /* FocusedTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusedTextEditor.swift; sourceTree = "<group>"; };
 		525387562C4BD33900688D62 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		525387582C4BD38700688D62 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
-		5253875A2C4BF7B500688D62 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
+		5253875A2C4BF7B500688D62 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		525F373A2C520141006DF545 /* UserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetails.swift; sourceTree = "<group>"; };
 		525F37402C5210A2006DF545 /* CDUser+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUser+CoreDataClass.swift"; sourceTree = "<group>"; };
 		525F37412C5210A2006DF545 /* CDUser+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -351,9 +351,9 @@
 			isa = PBXGroup;
 			children = (
 				52727F382C4E2124007C3097 /* Cells */,
-				520840002C4AAA9100B8F252 /* UsersViewController.swift */,
 				525387362C4B82E600688D62 /* UsersViewModel.swift */,
 				520391652C4D309A00C5F3CC /* UsersViewModel+Storage.swift */,
+				520840002C4AAA9100B8F252 /* UsersViewController.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -401,8 +401,8 @@
 		520840412C4B4E5A00B8F252 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				520840482C4B52E800B8F252 /* Profile */,
 				520840432C4B4E9700B8F252 /* Components */,
+				520840482C4B52E800B8F252 /* Profile */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -410,7 +410,7 @@
 		520840432C4B4E9700B8F252 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				5253875A2C4BF7B500688D62 /* LoaderView.swift */,
+				5253875A2C4BF7B500688D62 /* FeedbackView.swift */,
 				520840442C4B4EAA00B8F252 /* HostingController.swift */,
 				525387482C4BA5B900688D62 /* CacheAsyncImage.swift */,
 				525387522C4BD2E200688D62 /* DynamicTextEditor.swift */,
@@ -613,6 +613,8 @@
 			dependencies = (
 			);
 			name = TalkToDemo;
+			packageProductDependencies = (
+			);
 			productName = TalkToDemo;
 			productReference = 52083FF92C4AAA9100B8F252 /* TalkToDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -685,6 +687,8 @@
 				Base,
 			);
 			mainGroup = 52083FF02C4AAA9100B8F252;
+			packageReferences = (
+			);
 			productRefGroup = 52083FFA2C4AAA9100B8F252 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -773,7 +777,7 @@
 				520840622C4B684200B8F252 /* Date.swift in Sources */,
 				525387302C4B7F0A00688D62 /* UserService.swift in Sources */,
 				525F37452C52191C006DF545 /* UserResponse.swift in Sources */,
-				5253875B2C4BF7B500688D62 /* LoaderView.swift in Sources */,
+				5253875B2C4BF7B500688D62 /* FeedbackView.swift in Sources */,
 				52ECE1632C5187B7003C6622 /* UIImage.swift in Sources */,
 				5203910F2C4CC72500C5F3CC /* StorageStatus.swift in Sources */,
 				520840642C4B6ACA00B8F252 /* HttpClient.swift in Sources */,
