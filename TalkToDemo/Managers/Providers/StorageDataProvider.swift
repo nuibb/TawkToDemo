@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import CoreData
+
+struct StorageDataProvider: UserRepository {
+    var context: NSManagedObjectContext
+    
+    init(context: NSManagedObjectContext) {
+        self.context = context
+    }
+}

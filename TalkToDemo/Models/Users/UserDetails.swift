@@ -1,13 +1,13 @@
 //
-//  User.swift
+//  UserDetails.swift
 //  TalkToDemo
 //
-//  Created by Nurul Islam on 20/7/24.
+//  Created by Nurul Islam on 25/7/24.
 //
 
 import Foundation
 
-struct UserData: DecodableCodingKeys, Equatable {
+struct UserDetails: DecodableCodingKeys, Equatable {
     let login : String?
     var userId : Int?
     let nodeId : String?
@@ -26,6 +26,20 @@ struct UserData: DecodableCodingKeys, Equatable {
     let receivedEventsUrl : String?
     let type : String?
     let siteAdmin : Bool?
+    let name: String?
+    let company : String?
+    let blog : String?
+    let location : String?
+    let email : String?
+    let hireable : String?
+    let bio : String?
+    let twitterUsername : String?
+    let publicRepos : Int?
+    let publicGists : Int?
+    let followers : Int?
+    let following : Int?
+    let createdAt : String?
+    let updatedAt : String?
     var isSeen: Bool = false
     var noteData: String = ""
 
@@ -48,9 +62,24 @@ struct UserData: DecodableCodingKeys, Equatable {
         case receivedEventsUrl = "received_events_url"
         case type = "type"
         case siteAdmin = "site_admin"
+        case name = "name"
+        case company = "company"
+        case blog = "blog"
+        case location = "location"
+        case email = "email"
+        case hireable = "hireable"
+        case bio = "bio"
+        case twitterUsername = "twitter_username"
+        case publicRepos = "public_repos"
+        case publicGists = "public_gists"
+        case followers = "followers"
+        case following = "following"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
     }
     
-    static func == (lhs: UserData, rhs: UserData) -> Bool {
+    static func == (lhs: UserDetails, rhs: UserDetails) -> Bool {
         lhs.username == rhs.username && lhs.userId == rhs.userId
     }
 }
+

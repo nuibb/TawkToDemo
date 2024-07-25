@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+enum ImageDownloadError: Error {
+    case badImage
+}

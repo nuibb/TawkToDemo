@@ -36,7 +36,7 @@ extension UserEndPoint {
         case .users(let page, let size):
             return [
                 URLQueryItem(name: "since", value: String(page)),
-                //URLQueryItem(name: "page[size]", value: String(size))
+                URLQueryItem(name: "size", value: String(size))
             ]
         default:
             return nil
