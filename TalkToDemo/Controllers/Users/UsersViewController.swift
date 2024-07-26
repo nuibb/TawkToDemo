@@ -113,8 +113,11 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.configure(with: user)
         
-        if let last = self.viewModel.users.last, user.id == last.id,
-           !spinner.isAnimating, viewModel.loadMoreData {
+        if let last = self.viewModel.users.last,
+            user.id == last.id,
+           !spinner.isAnimating,
+            viewModel.loadMoreData,
+           !searchController.isActive {
             viewModel.pageIndex += 1
         }
         
@@ -153,10 +156,12 @@ extension UsersViewController: UISearchResultsUpdating, UISearchBarDelegate {
             viewModel.filteredUsers = viewModel.users
         } else {
             viewModel.filteredUsers = viewModel.users.filter { user in
-                user.username.lowercased().contains(searchText.lowercased()) ||
-                user.notes.lowercased().contains(searchText.lowercased()) ||
-                user.username.lowercased() == searchText.lowercased() ||
-                user.notes.lowercased() == searchText.lowercased()
+                let lowercasedSearchText = searchText.lowercased()
+                let lowercasedUsername = user.username.lowercased()
+                let lowercasedNotes = user.notes.lowercased()
+                
+                return lowercasedUsername.contains(lowercasedSearchText) ||
+                lowercasedNotes.contains(lowercasedSearchText)
             }
         }
         
