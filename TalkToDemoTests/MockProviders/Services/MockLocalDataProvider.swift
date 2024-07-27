@@ -23,24 +23,27 @@ class MockLocalDataProvider: UserRepository {
     }
 
     func deleteUser(byIdentifier id: String) async -> StorageStatus {
-        mockUsers.removeAll { $0.id == id }
+        guard let index = mockUsers.firstIndex(where: { $0.id == id }) else {
+            return .notExistsInDB
+        }
+        mockUsers.remove(at: index)
         return .succeed
     }
 
     func updateUser(record: User) async -> StorageStatus {
-        if let index = mockUsers.firstIndex(where: { $0.id == record.id }) {
-            mockUsers[index] = record
-            return .succeed
+        guard let index = mockUsers.firstIndex(where: { $0.id == record.id }) else {
+            return .notExistsInDB
         }
-        return .notExistsInDB
+        mockUsers[index] = record
+        return .succeed
     }
 
     func updateReadStatus(record: User) async -> StorageStatus {
-        if let index = mockUsers.firstIndex(where: { $0.id == record.id }) {
-            mockUsers[index].seen = true
-            return .succeed
+        guard let index = mockUsers.firstIndex(where: { $0.id == record.id }) else {
+            return .notExistsInDB
         }
-        return .notExistsInDB
+        mockUsers[index].seen = true
+        return .succeed
     }
 
     func fetchUsers() async -> [User] {

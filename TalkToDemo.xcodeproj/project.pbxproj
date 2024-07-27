@@ -73,6 +73,7 @@
 		525F37422C5210A2006DF545 /* CDUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525F37402C5210A2006DF545 /* CDUser+CoreDataClass.swift */; };
 		525F37432C5210A2006DF545 /* CDUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525F37412C5210A2006DF545 /* CDUser+CoreDataProperties.swift */; };
 		525F37452C52191C006DF545 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525F37442C52191C006DF545 /* UserResponse.swift */; };
+		5266C7922C558ACC00B5B269 /* CoreDataModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5266C7912C558ACC00B5B269 /* CoreDataModelTest.swift */; };
 		52701DD52C52AD9300803935 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52701DD42C52AD9300803935 /* Array.swift */; };
 		52701DD72C52CB0B00803935 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52701DD62C52CB0B00803935 /* ImageLoader.swift */; };
 		52727F2F2C4E16CC007C3097 /* NotesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52727F2E2C4E16CC007C3097 /* NotesCell.xib */; };
@@ -177,6 +178,7 @@
 		525F37402C5210A2006DF545 /* CDUser+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUser+CoreDataClass.swift"; sourceTree = "<group>"; };
 		525F37412C5210A2006DF545 /* CDUser+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		525F37442C52191C006DF545 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		5266C7912C558ACC00B5B269 /* CoreDataModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataModelTest.swift; sourceTree = "<group>"; };
 		52701DD42C52AD9300803935 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		52701DD62C52CB0B00803935 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		52727F2E2C4E16CC007C3097 /* NotesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesCell.xib; sourceTree = "<group>"; };
@@ -445,9 +447,7 @@
 		5208404D2C4B53B600B8F252 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				5253872E2C4B7EBA00688D62 /* Storage */,
 				5253872D2C4B7EB100688D62 /* Api */,
-				5253872C2C4B7E8100688D62 /* Mock */,
 				5253872B2C4B7E7600688D62 /* Routing */,
 			);
 			path = Services;
@@ -532,26 +532,12 @@
 			path = Routing;
 			sourceTree = "<group>";
 		};
-		5253872C2C4B7E8100688D62 /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Mock;
-			sourceTree = "<group>";
-		};
 		5253872D2C4B7EB100688D62 /* Api */ = {
 			isa = PBXGroup;
 			children = (
 				5253872F2C4B7F0A00688D62 /* UserService.swift */,
 			);
 			path = Api;
-			sourceTree = "<group>";
-		};
-		5253872E2C4B7EBA00688D62 /* Storage */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Storage;
 			sourceTree = "<group>";
 		};
 		525387312C4B7FE200688D62 /* Users */ = {
@@ -615,6 +601,7 @@
 			isa = PBXGroup;
 			children = (
 				52DA7CDE2C54D12200E26827 /* TestCoreDataStack.swift */,
+				5266C7912C558ACC00B5B269 /* CoreDataModelTest.swift */,
 			);
 			path = LocalDb;
 			sourceTree = "<group>";
@@ -860,6 +847,7 @@
 			files = (
 				52DA7CE12C54D22300E26827 /* UsersViewModelTest.swift in Sources */,
 				52DA7CDC2C54D00D00E26827 /* MockLocalDataProvider.swift in Sources */,
+				5266C7922C558ACC00B5B269 /* CoreDataModelTest.swift in Sources */,
 				52DA7CEE2C55260500E26827 /* MockRemoteDataProvider.swift in Sources */,
 				52DA7CDF2C54D12200E26827 /* TestCoreDataStack.swift in Sources */,
 			);

@@ -97,7 +97,7 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
         }
     }
     
-    private func addUniqueUsers(_ newUsers: [User]) {
+    func addUniqueUsers(_ newUsers: [User]) {
         let existingUserIDs = Set(self.users.map { $0.id })
         for user in newUsers {
             if !existingUserIDs.contains(user.id) {
