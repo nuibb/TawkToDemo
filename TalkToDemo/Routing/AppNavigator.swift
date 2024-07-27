@@ -30,7 +30,7 @@ extension AppNavigator {
         let controller = HostingController(
             rootView: FeedbackView(message: message)
         )
-        controller.view.backgroundColor = UIColor.textColor.withAlphaComponent(0.8)
+        controller.view.backgroundColor = UIColor.primaryColor?.withAlphaComponent(0.8)
         controller.modalPresentationStyle = .overCurrentContext
         controller.modalTransitionStyle = .crossDissolve
         self.present(controller)

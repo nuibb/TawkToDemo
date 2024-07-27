@@ -28,7 +28,7 @@ class UsersViewController: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchBar.tintColor = UIColor.black
-        searchController.searchBar.searchTextField.textColor = UIColor.text
+        searchController.searchBar.searchTextField.textColor = UIColor.primaryColor
         searchController.searchBar.searchTextField.clearButtonMode = .whileEditing
         return searchController
     }()

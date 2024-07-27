@@ -19,12 +19,12 @@ struct ProfileView: View {
                     HStack(alignment: .center) {
                         Spacer()
                         Text("Followers: \(viewModel.user.followers ?? 0)")
-                            .defaultModifier(style: .subheadline, color: .textColor)
+                            .defaultModifier(style: .subheadline, color: .primaryColor)
                         
                         Spacer()
                         
                         Text("Following: \(viewModel.user.following ?? 0)")
-                            .defaultModifier(style: .subheadline, color: .textColor)
+                            .defaultModifier(style: .subheadline, color: .primaryColor)
                         Spacer()
                     }
                     .padding(.top, 8)
@@ -35,10 +35,10 @@ struct ProfileView: View {
                             if let name = viewModel.user.name, !name.isEmpty {
                                 HStack(spacing: 4) {
                                     Text("Name: ")
-                                        .defaultModifier(style: .callout, color: .textColor)
+                                        .defaultModifier(style: .callout, color: .primaryColor)
                                     
                                     Text(name)
-                                        .boldModifier(style: .callout, color: .textColor)
+                                        .boldModifier(style: .callout, color: .primaryColor)
                                     
                                     Spacer()
                                 }
@@ -47,10 +47,10 @@ struct ProfileView: View {
                             if let company = viewModel.user.company, !company.isEmpty {
                                 HStack(spacing: 4) {
                                     Text("Company: ")
-                                        .defaultModifier(style: .callout, color: .textColor)
+                                        .defaultModifier(style: .callout, color: .primaryColor)
                                     
                                     Text(company)
-                                        .boldModifier(style: .callout, color: .textColor)
+                                        .boldModifier(style: .callout, color: .primaryColor)
                                     
                                     Spacer()
                                 }
@@ -59,10 +59,10 @@ struct ProfileView: View {
                             if let blog = viewModel.user.blog, !blog.isEmpty {
                                 HStack(spacing: 4) {
                                     Text("Blog: ")
-                                        .defaultModifier(style: .callout, color: .textColor)
+                                        .defaultModifier(style: .callout, color: .primaryColor)
                                     
                                     Text(blog)
-                                        .boldModifier(style: .callout, color: .textColor)
+                                        .boldModifier(style: .callout, color: .primaryColor)
                                     
                                     Spacer()
                                 }
@@ -72,7 +72,7 @@ struct ProfileView: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(
-                                    Color.textColor,
+                                    Color.primaryColor,
                                     lineWidth: 1
                                 )
                         )
@@ -81,7 +81,7 @@ struct ProfileView: View {
                     
                     VStack(alignment: .leading, spacing: 8) {
                         Text(Constants.notes)
-                            .defaultModifier(style: .callout, color: .textColor)
+                            .defaultModifier(style: .callout, color: .primaryColor)
                         
                         DynamicTextEditor(
                             text: $viewModel.user.notes,
@@ -91,7 +91,7 @@ struct ProfileView: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(
-                                    Color.textColor,
+                                    Color.primaryColor,
                                     lineWidth: 1
                                 )
                         )
@@ -102,7 +102,7 @@ struct ProfileView: View {
                         updateNotes()
                     }) {
                         Text(Constants.save)
-                            .textModifierWithOverlay(style: .callout, color: .textColor)
+                            .textModifierWithOverlay(style: .callout, color: .primaryColor)
                     }
                     .buttonStyle(.borderless)
                     

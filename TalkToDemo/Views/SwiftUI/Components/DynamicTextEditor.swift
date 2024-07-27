@@ -25,7 +25,7 @@ struct DynamicTextEditor: View {
                             .padding(.leading, 8)
                             .padding(.trailing, 5)
                             .font(.circular(.subheadline))
-                            .foregroundColor(.textColor)
+                            .foregroundColor(.primaryColor)
                             .conditionalFrame(linesAllowed: linesAllowed)
                             .onChange(of: text) { _ in
                                 hidePlaceHolder = text.isEmpty ? false : true

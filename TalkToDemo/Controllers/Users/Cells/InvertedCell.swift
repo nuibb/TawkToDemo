@@ -24,6 +24,7 @@ class InvertedCell: UITableViewCell, UserCell {
                     self.avatar.image = image
                 }
             } else {
+                self.avatar.image = UIImage(named: "avatar")
                 self.downloadAndCache(imageURL)
             }
             
@@ -31,6 +32,7 @@ class InvertedCell: UITableViewCell, UserCell {
             self.avatar.image = UIImage(named: "avatar")
         }
         
+        self.avatar.tintColor = UIColor(named: "primaryColor")
         self.userName.text = user.username
         self.userDetails.text = user.id
         
