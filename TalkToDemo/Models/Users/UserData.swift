@@ -8,24 +8,24 @@
 import Foundation
 
 struct UserData: DecodableCodingKeys, Equatable {
-    let login : String?
+    var login : String?
     var userId : Int?
-    let nodeId : String? = nil
-    let avatarUrl : String? = nil
-    let grAvatarId : String? = nil
-    let url : String? = nil
-    let htmlUrl : String? = nil
-    let followersUrl : String? = nil
-    let followingUrl : String? = nil
-    let gistsUrl : String? = nil
-    let starredUrl : String? = nil
-    let subscriptionsUrl : String? = nil
-    let organizationsUrl : String? = nil
-    let reposUrl : String? = nil
-    let eventsUrl : String? = nil
-    let receivedEventsUrl : String? = nil
-    let type : String? = nil
-    let siteAdmin : Bool? = nil
+    var nodeId : String? = nil
+    var avatarUrl : String? = nil
+    var grAvatarId : String? = nil
+    var url : String? = nil
+    var htmlUrl : String? = nil
+    var followersUrl : String? = nil
+    var followingUrl : String? = nil
+    var gistsUrl : String? = nil
+    var starredUrl : String? = nil
+    var subscriptionsUrl : String? = nil
+    var organizationsUrl : String? = nil
+    var reposUrl : String? = nil
+    var eventsUrl : String? = nil
+    var receivedEventsUrl : String? = nil
+    var type : String? = nil
+    var siteAdmin : Bool? = nil
     var isSeen: Bool = false
     var noteData: String = ""
 

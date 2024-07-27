@@ -30,7 +30,7 @@ class CoreDataModelTests: XCTestCase {
 
         // Act
         let status = await mockLocalDataProvider.createUser(record: user)
-        let fetchedUser = await mockLocalDataProvider.fetchUser(byIdentifier: "1")
+        let fetchedUser = await mockLocalDataProvider.fetchUser(byIdentifier: user.id)
 
         // Assert
         XCTAssertEqual(status, StorageStatus.succeed)
@@ -40,19 +40,24 @@ class CoreDataModelTests: XCTestCase {
 
     func testUpdateUser() async throws {
         // Arrange
-        let user = UserData(login: "testuser1", userId: 1)
+        let user = UserData(login: "testuser1", userId: 1, isSeen: false)
         let _ = await mockLocalDataProvider.createUser(record: user)
 
         // Act
         var updatedUser = user
-        updatedUser.userId = 2
+        updatedUser.isSeen = true
         let status = await mockLocalDataProvider.updateUser(record: updatedUser)
-        let fetchedUser = await mockLocalDataProvider.fetchUser(byIdentifier: "1")
+        let fetchedUser = await mockLocalDataProvider.fetchUser(byIdentifier: updatedUser.id)
 
         // Assert
         XCTAssertEqual(status, StorageStatus.succeed)
         XCTAssertNotNil(fetchedUser)
-        XCTAssertEqual(fetchedUser?.id, "2")
+
+        if let fetchedUser = fetchedUser as? UserData {
+            XCTAssertTrue(fetchedUser.isSeen, "The user's isSeen property should be true after the update.")
+        } else {
+            XCTFail("Fetched user is not of type UserData.")
+        }
     }
 
     func testDeleteUser() async throws {
@@ -61,8 +66,8 @@ class CoreDataModelTests: XCTestCase {
         let _ = await mockLocalDataProvider.createUser(record: user)
 
         // Act
-        let status = await mockLocalDataProvider.deleteUser(byIdentifier: "1")
-        let fetchedUser = await mockLocalDataProvider.fetchUser(byIdentifier: "1")
+        let status = await mockLocalDataProvider.deleteUser(byIdentifier: user.id)
+        let fetchedUser = await mockLocalDataProvider.fetchUser(byIdentifier: user.id)
 
         // Assert
         XCTAssertEqual(status, StorageStatus.succeed)

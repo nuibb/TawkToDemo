@@ -8,7 +8,7 @@
 import Foundation
 
 struct UserDetails: DecodableCodingKeys, Equatable {
-    let login : String?
+    var login : String?
     var userId : Int?
     var nodeId : String? = nil
     var avatarUrl : String? = nil
