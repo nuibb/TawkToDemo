@@ -128,28 +128,29 @@ class UsersViewModelTests: XCTestCase {
     func test_UsersViewModel_when_network_is_unavailable() async throws {
         // Arrange
         let expectation = XCTestExpectation(description: "Network error expectation")
-        let page = 0
-        let size = 10
+        mockRemoteDataProvider.mockUsers = []
+        viewModel.users = []
+        viewModel.filteredUsers = []
         
         /// Simulating network not availability error response
         mockRemoteDataProvider.networkMonitor.isConnected = false
         
         // Act
-        Task { [weak self] in
-            guard let self = self else { return }
-            let response = await mockRemoteDataProvider.getUsers(page: page, size: size)
-            if case .success(_) = response {
-                XCTFail("Expected network to be unavailable")
-            } else if case .failure(let error) = response {
-                XCTAssertEqual(error.status, RequestError.networkNotAvailable.status)
-                expectation.fulfill()
-            } else {
-                XCTFail("Expected network to be unavailable")
-            }
-        }
+        viewModel.$showToast
+            .sink { [weak self] newValue in
+                guard let self else { return }
+                if !self.viewModel.showToast && newValue {
+                    expectation.fulfill()
+                }
+            }.store(in: &cancellationTokens)
+        
+        viewModel.getUsers()
         
         // Assert
         await fulfillment(of: [expectation], timeout: 5)
+        XCTAssertTrue(viewModel.users.isEmpty)
+        XCTAssertTrue(viewModel.filteredUsers.isEmpty)
+        XCTAssertEqual(viewModel.toastMessage, RequestError.networkNotAvailable.status)
     }
     
     func testAddUniqueUsers() {
