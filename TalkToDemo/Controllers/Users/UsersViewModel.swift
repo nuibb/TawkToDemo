@@ -22,21 +22,22 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
     var loadMoreData: Bool = false
     
     private var cancellationTokens = Set<AnyCancellable>()
-    private let remoteDataProvider: UserService
+    internal let remoteDataProvider: UserService
     internal let localDataProvider: UserRepository
     
     init(remoteDataProvider: UserService, localDataProvider: UserRepository) {
         self.remoteDataProvider = remoteDataProvider
         self.localDataProvider = localDataProvider
         
+        self.addObservers()
+    }
+    
+    func loadData() {
         self.getLocalUsers()
-        
         Utils.after(seconds: 1.0) { [weak self] in
-            guard let self else { return }
+            guard let self = self else { return }
             self.getUsers()
         }
-        
-        self.addObservers()
     }
     
     private func addObservers() {
@@ -70,7 +71,7 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
             }.store(in: &cancellationTokens)
     }
     
-    private func getUsers() {
+    func getUsers() {
         self.isRequesting = true
         
         Task { [weak self] in

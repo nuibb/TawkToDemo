@@ -10,22 +10,22 @@ import Foundation
 struct UserData: DecodableCodingKeys, Equatable {
     let login : String?
     var userId : Int?
-    let nodeId : String?
-    let avatarUrl : String?
-    let grAvatarId : String?
-    let url : String?
-    let htmlUrl : String?
-    let followersUrl : String?
-    let followingUrl : String?
-    let gistsUrl : String?
-    let starredUrl : String?
-    let subscriptionsUrl : String?
-    let organizationsUrl : String?
-    let reposUrl : String?
-    let eventsUrl : String?
-    let receivedEventsUrl : String?
-    let type : String?
-    let siteAdmin : Bool?
+    let nodeId : String? = nil
+    let avatarUrl : String? = nil
+    let grAvatarId : String? = nil
+    let url : String? = nil
+    let htmlUrl : String? = nil
+    let followersUrl : String? = nil
+    let followingUrl : String? = nil
+    let gistsUrl : String? = nil
+    let starredUrl : String? = nil
+    let subscriptionsUrl : String? = nil
+    let organizationsUrl : String? = nil
+    let reposUrl : String? = nil
+    let eventsUrl : String? = nil
+    let receivedEventsUrl : String? = nil
+    let type : String? = nil
+    let siteAdmin : Bool? = nil
     var isSeen: Bool = false
     var noteData: String = ""
 

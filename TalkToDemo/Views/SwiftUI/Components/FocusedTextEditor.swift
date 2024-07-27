@@ -23,7 +23,7 @@ struct FocusedTextEditor: View {
                 .padding(.leading, 8)
                 .padding(.trailing, 5)
                 .font(.circular(.subheadline))
-                .foregroundColor(.textColor)
+                .foregroundColor(.primaryColor)
                 .conditionalFrame(linesAllowed: linesAllowed)
                 .focused($isFocused)
                 .keyboardType(keyboardType)

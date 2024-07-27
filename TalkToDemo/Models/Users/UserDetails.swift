@@ -10,36 +10,36 @@ import Foundation
 struct UserDetails: DecodableCodingKeys, Equatable {
     let login : String?
     var userId : Int?
-    let nodeId : String?
-    let avatarUrl : String?
-    let grAvatarId : String?
-    let url : String?
-    let htmlUrl : String?
-    let followersUrl : String?
-    let followingUrl : String?
-    let gistsUrl : String?
-    let starredUrl : String?
-    let subscriptionsUrl : String?
-    let organizationsUrl : String?
-    let reposUrl : String?
-    let eventsUrl : String?
-    let receivedEventsUrl : String?
-    let type : String?
-    let siteAdmin : Bool?
-    let name: String?
-    let company : String?
-    let blog : String?
-    let location : String?
-    let email : String?
-    let hireable : String?
-    let bio : String?
-    let twitterUsername : String?
-    let publicRepos : Int?
-    let publicGists : Int?
-    let followers : Int?
-    let following : Int?
-    let createdAt : String?
-    let updatedAt : String?
+    var nodeId : String? = nil
+    var avatarUrl : String? = nil
+    var grAvatarId : String? = nil
+    var url : String? = nil
+    var htmlUrl : String? = nil
+    var followersUrl : String? = nil
+    var followingUrl : String? = nil
+    var gistsUrl : String? = nil
+    var starredUrl : String? = nil
+    var subscriptionsUrl : String? = nil
+    var organizationsUrl : String? = nil
+    var reposUrl : String? = nil
+    var eventsUrl : String? = nil
+    var receivedEventsUrl : String? = nil
+    var type : String? = nil
+    var siteAdmin : Bool? = nil
+    var name: String? = nil
+    var company : String? = nil
+    var blog : String? = nil
+    var location : String? = nil
+    var email : String? = nil
+    var hireable : Bool? = nil
+    var bio : String? = nil
+    var twitterUsername : String? = nil
+    var publicRepos : Int? = nil
+    var publicGists : Int? = nil
+    var followers : Int? = nil
+    var following : Int? = nil
+    var createdAt : String? = nil
+    var updatedAt : String? = nil
     var isSeen: Bool = false
     var noteData: String = ""
 

@@ -51,7 +51,7 @@ extension Text {
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(
-                        Color.textColor,
+                        Color.primaryColor,
                         lineWidth: 1
                     )
             )

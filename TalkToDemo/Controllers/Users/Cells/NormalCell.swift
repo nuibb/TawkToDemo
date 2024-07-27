@@ -20,6 +20,7 @@ class NormalCell: UITableViewCell, UserCell {
             if let image = imageURL.loadImage() {
                 self.avatar.image = image
             } else {
+                self.avatar.image = UIImage(named: "avatar")
                 self.downloadAndCache(imageURL)
             }
             
@@ -27,6 +28,7 @@ class NormalCell: UITableViewCell, UserCell {
             self.avatar.image = UIImage(named: "avatar")
         }
         
+        self.avatar.tintColor = UIColor(named: "primaryColor")
         self.userName.text = user.username
         self.userDetails.text = user.id
         

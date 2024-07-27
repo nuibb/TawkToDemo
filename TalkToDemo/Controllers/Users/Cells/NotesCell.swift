@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NotesCell: UITableViewCell, UserCell  {
+class NotesCell: UITableViewCell, UserCell {
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var userDetails: UILabel!
@@ -22,6 +22,7 @@ class NotesCell: UITableViewCell, UserCell  {
             if let image = imageURL.loadImage() {
                 self.avatar.image = image
             } else {
+                self.avatar.image = UIImage(named: "avatar")
                 self.downloadAndCache(imageURL)
             }
             
@@ -29,6 +30,7 @@ class NotesCell: UITableViewCell, UserCell  {
             self.avatar.image = UIImage(named: "avatar")
         }
         
+        self.avatar.tintColor = UIColor(named: "primaryColor")
         self.userName.text = user.username
         self.userDetails.text = user.id
         
