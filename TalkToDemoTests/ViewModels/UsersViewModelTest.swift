@@ -77,7 +77,7 @@ class UsersViewModelTests: XCTestCase {
         mockRemoteDataProvider.networkMonitor.isConnected = true
         viewModel.users = []
         viewModel.filteredUsers = []
-
+        
         // Act
         viewModel.$filteredUsers
             .dropFirst()
@@ -91,7 +91,7 @@ class UsersViewModelTests: XCTestCase {
             .store(in: &cancellationTokens)
         
         viewModel.getUsers()
-
+        
         // Assert
         await fulfillment(of: [expectation], timeout: 5)
         XCTAssertEqual(viewModel.users.count, 2)
@@ -99,7 +99,7 @@ class UsersViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.filteredUsers.count, 2)
         XCTAssertTrue(viewModel.loadMoreData)
     }
-
+    
     func testGetUsers_withEmptyResponse() async throws {
         // Arrange
         let expectation = XCTestExpectation(description: "Fetch users with empty response")
@@ -107,7 +107,7 @@ class UsersViewModelTests: XCTestCase {
         mockRemoteDataProvider.networkMonitor.isConnected = true
         viewModel.users = []
         viewModel.filteredUsers = []
-
+        
         // Act
         viewModel.$isRequesting
             .sink { [weak self] newValue in
@@ -118,13 +118,13 @@ class UsersViewModelTests: XCTestCase {
             }.store(in: &cancellationTokens)
         
         viewModel.getUsers()
-
+        
         // Assert
         await fulfillment(of: [expectation], timeout: 5)
         XCTAssertTrue(viewModel.users.isEmpty)
         XCTAssertTrue(viewModel.filteredUsers.isEmpty)
     }
-
+    
     func test_UsersViewModel_when_network_is_unavailable() async throws {
         // Arrange
         let expectation = XCTestExpectation(description: "Network error expectation")
@@ -133,7 +133,7 @@ class UsersViewModelTests: XCTestCase {
         
         /// Simulating network not availability error response
         mockRemoteDataProvider.networkMonitor.isConnected = false
-
+        
         // Act
         Task { [weak self] in
             guard let self = self else { return }
@@ -147,8 +147,45 @@ class UsersViewModelTests: XCTestCase {
                 XCTFail("Expected network to be unavailable")
             }
         }
-
+        
         // Assert
         await fulfillment(of: [expectation], timeout: 5)
+    }
+    
+    func testAddUniqueUsers() {
+        // Arrange
+        let existingUser = UserData(login: "testuser1", userId: 1)
+        let newUser = UserData(login: "testuser2", userId: 2)
+        viewModel.users = [existingUser]
+        
+        // Act
+        viewModel.addUniqueUsers([existingUser, newUser])
+        
+        // Assert
+        XCTAssertEqual(viewModel.users.count, 2)
+        XCTAssertTrue(viewModel.users.contains { $0.id == newUser.id })
+    }
+    
+    func testGetLocalUsers_withoutData() async throws {
+        // Arrange
+        mockLocalDataProvider.mockUsers = []
+        
+        // Act
+        viewModel.getLocalUsers()
+        
+        // Assert
+        XCTAssertEqual(viewModel.users.count, 0)
+    }
+    
+    func testGetUsers_withNetworkError() async throws {
+        // Arrange
+        mockRemoteDataProvider.networkMonitor.isConnected = false
+        
+        // Act
+        viewModel.getUsers()
+        
+        // Assert
+        XCTAssertEqual(viewModel.users.count, 0)
+        XCTAssertFalse(viewModel.loadMoreData)
     }
 }
