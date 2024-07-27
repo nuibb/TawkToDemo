@@ -140,7 +140,7 @@ extension ProfileView {
 }
 
 #Preview {
-    let user = UserData(login: UUID().uuidString, nodeId: nil, avatarUrl: nil, grAvatarId: nil, url: nil, htmlUrl: nil, followersUrl: nil, followingUrl: nil, gistsUrl: nil, starredUrl: nil, subscriptionsUrl: nil, organizationsUrl: nil, reposUrl: nil, eventsUrl: nil, receivedEventsUrl: nil, type: nil, siteAdmin: nil)
+    let user = UserData(login: UUID().uuidString, userId: 1)
     
     return ProfileView(
         viewModel: ProfileViewModel(

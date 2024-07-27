@@ -47,7 +47,7 @@ final class ProfileViewModel: ObservableObject, ResponseHandler {
             }.store(in: &cancellationTokens)
     }
     
-    private func getLocalUser() {
+    func getLocalUser() {
         Task { [weak self] in
             guard let self = self else { return }
             let user = await self.localDataProvider.fetchUser(byIdentifier: self.user.id)

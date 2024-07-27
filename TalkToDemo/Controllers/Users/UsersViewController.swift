@@ -44,6 +44,7 @@ class UsersViewController: UIViewController {
         self.spinner.isHidden = true
         
         self.initObservers()
+        self.viewModel.loadData()
     }
     
     private func configurations() {
