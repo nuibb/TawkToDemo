@@ -34,7 +34,7 @@ class InvertedCell: UITableViewCell, UserCell {
         
         self.avatar.tintColor = UIColor(named: "primaryColor")
         self.userName.text = user.username
-        self.userDetails.text = user.id
+        self.userDetails.text = user.details ?? ""
         
         if user.seen {
             self.avatar.alpha = 0.3
