@@ -70,12 +70,12 @@
 		525387592C4BD38700688D62 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525387582C4BD38700688D62 /* Modifiers.swift */; };
 		5253875B2C4BF7B500688D62 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5253875A2C4BF7B500688D62 /* FeedbackView.swift */; };
 		525F373B2C520141006DF545 /* UserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525F373A2C520141006DF545 /* UserDetails.swift */; };
-		525F37422C5210A2006DF545 /* CDUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525F37402C5210A2006DF545 /* CDUser+CoreDataClass.swift */; };
-		525F37432C5210A2006DF545 /* CDUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525F37412C5210A2006DF545 /* CDUser+CoreDataProperties.swift */; };
 		525F37452C52191C006DF545 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525F37442C52191C006DF545 /* UserResponse.swift */; };
 		5266C7922C558ACC00B5B269 /* CoreDataModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5266C7912C558ACC00B5B269 /* CoreDataModelTest.swift */; };
 		52701DD52C52AD9300803935 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52701DD42C52AD9300803935 /* Array.swift */; };
 		52701DD72C52CB0B00803935 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52701DD62C52CB0B00803935 /* ImageLoader.swift */; };
+		5271A9B62C69CDCF001E6722 /* CDUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5271A9B42C69CDCF001E6722 /* CDUser+CoreDataClass.swift */; };
+		5271A9B72C69CDCF001E6722 /* CDUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5271A9B52C69CDCF001E6722 /* CDUser+CoreDataProperties.swift */; };
 		52727F2F2C4E16CC007C3097 /* NotesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52727F2E2C4E16CC007C3097 /* NotesCell.xib */; };
 		52727F312C4E1721007C3097 /* NotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52727F302C4E1721007C3097 /* NotesCell.swift */; };
 		52727F352C4E1D65007C3097 /* InvertedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52727F342C4E1D65007C3097 /* InvertedCell.xib */; };
@@ -175,12 +175,12 @@
 		525387582C4BD38700688D62 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		5253875A2C4BF7B500688D62 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		525F373A2C520141006DF545 /* UserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetails.swift; sourceTree = "<group>"; };
-		525F37402C5210A2006DF545 /* CDUser+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUser+CoreDataClass.swift"; sourceTree = "<group>"; };
-		525F37412C5210A2006DF545 /* CDUser+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		525F37442C52191C006DF545 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		5266C7912C558ACC00B5B269 /* CoreDataModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataModelTest.swift; sourceTree = "<group>"; };
 		52701DD42C52AD9300803935 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		52701DD62C52CB0B00803935 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		5271A9B42C69CDCF001E6722 /* CDUser+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUser+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5271A9B52C69CDCF001E6722 /* CDUser+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		52727F2E2C4E16CC007C3097 /* NotesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesCell.xib; sourceTree = "<group>"; };
 		52727F302C4E1721007C3097 /* NotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCell.swift; sourceTree = "<group>"; };
 		52727F342C4E1D65007C3097 /* InvertedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InvertedCell.xib; sourceTree = "<group>"; };
@@ -251,8 +251,8 @@
 		520391182C4CC82300C5F3CC /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				525F37402C5210A2006DF545 /* CDUser+CoreDataClass.swift */,
-				525F37412C5210A2006DF545 /* CDUser+CoreDataProperties.swift */,
+				5271A9B42C69CDCF001E6722 /* CDUser+CoreDataClass.swift */,
+				5271A9B52C69CDCF001E6722 /* CDUser+CoreDataProperties.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -799,8 +799,6 @@
 				525387372C4B82E600688D62 /* UsersViewModel.swift in Sources */,
 				520840472C4B512E00B8F252 /* UIViewController.swift in Sources */,
 				5208406E2C4B6C4C00B8F252 /* DecodeError.swift in Sources */,
-				525F37422C5210A2006DF545 /* CDUser+CoreDataClass.swift in Sources */,
-				525F37432C5210A2006DF545 /* CDUser+CoreDataProperties.swift in Sources */,
 				525387292C4B794000688D62 /* UserEndPoint.swift in Sources */,
 				525387592C4BD38700688D62 /* Modifiers.swift in Sources */,
 				520391112C4CC75000C5F3CC /* BaseRepository.swift in Sources */,
@@ -809,6 +807,8 @@
 				520391662C4D309A00C5F3CC /* UsersViewModel+Storage.swift in Sources */,
 				525387402C4B85C400688D62 /* DataProvider.swift in Sources */,
 				52727F312C4E1721007C3097 /* NotesCell.swift in Sources */,
+				5271A9B62C69CDCF001E6722 /* CDUser+CoreDataClass.swift in Sources */,
+				5271A9B72C69CDCF001E6722 /* CDUser+CoreDataProperties.swift in Sources */,
 				525387492C4BA5B900688D62 /* CacheAsyncImage.swift in Sources */,
 				520840622C4B684200B8F252 /* Date.swift in Sources */,
 				52701DD52C52AD9300803935 /* Array.swift in Sources */,

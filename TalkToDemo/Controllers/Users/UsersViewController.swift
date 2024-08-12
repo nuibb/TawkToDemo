@@ -115,11 +115,11 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: user)
         
         if let last = self.viewModel.users.last,
-            user.id == last.id,
+           user.id == last.id,
+           viewModel.lastUserId != last.actualId,
            !spinner.isAnimating,
-            viewModel.loadMoreData,
            !searchController.isActive {
-            viewModel.pageIndex += 1
+            viewModel.lastUserId = last.actualId
         }
         
         return cell as! UITableViewCell

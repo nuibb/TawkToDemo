@@ -2,7 +2,7 @@
 //  CDUser+CoreDataProperties.swift
 //  TalkToDemo
 //
-//  Created by Nurul Islam on 25/7/24.
+//  Created by Nurul Islam on 12/8/24.
 //
 //
 
@@ -22,15 +22,19 @@ extension CDUser {
     @NSManaged public var details: String?
     @NSManaged public var followers_count: Int64
     @NSManaged public var following_count: Int64
-    @NSManaged public var id: String
+    @NSManaged public var userId: String
     @NSManaged public var name: String?
     @NSManaged public var notes: String
     @NSManaged public var seen: Bool
     @NSManaged public var username: String
-
 }
 
 extension CDUser: Identifiable, User {
+    public var id: String {
+        let uniqueId = userId + username
+        return uniqueId == "0" ? UUID().uuidString : uniqueId
+    }
+    var actualId: Int { Int(userId) ?? 0 }
     var followers: Int? { Int(followers_count) }
     var following: Int? { Int(following_count) }
 }

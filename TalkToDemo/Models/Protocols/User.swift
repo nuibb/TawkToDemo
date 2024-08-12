@@ -9,6 +9,7 @@ import Foundation
 
 protocol User {
     var id: String { get }
+    var actualId: Int { get }
     var name: String? { get }
     var username: String { get }
     var avatar: String? { get }

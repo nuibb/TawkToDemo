@@ -25,7 +25,7 @@ extension UserRepository {
     @discardableResult
     func createUser(record: T1) async -> StorageStatus {
         guard let cdUser = await self.create(T.self) else { return .insertionFailed }
-        cdUser.id = record.id
+        cdUser.userId = String(record.actualId)
         cdUser.name = record.name
         cdUser.username = record.username
         cdUser.avatar = record.avatar
