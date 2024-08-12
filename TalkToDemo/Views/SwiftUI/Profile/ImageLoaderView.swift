@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ImageLoader: View {
+struct ImageLoaderView: View {
     @ObservedObject var viewModel: ProfileViewModel
     @State var image: Image?
 
@@ -55,16 +55,11 @@ struct ImageLoader: View {
     }
 }
 
-extension ImageLoader {
+extension ImageLoaderView {
     private func downloadAndCache(_ url: URL) {
-        Task {
-            do {
-                let uiImage = try await url.downloadImage()
-                self.image = Image(uiImage: uiImage)
-                try url.cache(uiImage)
-            } catch {
-                Logger.log(type: .error, "Image download failed with error: \(error.localizedDescription)")
-            }
+        ImageDownloadProvider.shared.downloadImage(from: url) { image in
+            guard let uiImage = image else { return }
+            self.image = Image(uiImage: uiImage)
         }
     }
 }

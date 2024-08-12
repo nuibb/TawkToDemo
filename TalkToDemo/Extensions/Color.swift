@@ -51,7 +51,7 @@ extension UIColor {
 }
 
 extension UIColor {
-    static let primaryColor = UIColor(named: "PrimaryColor")
+    static let primaryColor = UIColor(named: "DefaultColor")
     static let backgroundColor = UIColor(named: "BackgroundColor")
     static let borderColor = UIColor(hex: "E4E4E4")
 }

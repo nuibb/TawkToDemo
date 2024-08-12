@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class ProfileViewModel: ObservableObject, ResponseHandler {
+final class ProfileViewModel: ObservableObject {
     @Published var user: User
     @Published var isRequesting: Bool = false
     @Published var showToast: Bool = false
@@ -19,9 +19,9 @@ final class ProfileViewModel: ObservableObject, ResponseHandler {
     private var cancellationTokens = Set<AnyCancellable>()
     
     init(user: User,
-        remoteDataProvider: UserService,
-        localDataProvider: UserRepository) {
-            
+         remoteDataProvider: UserService,
+         localDataProvider: UserRepository) {
+        
         self.user = user
         self.remoteDataProvider = remoteDataProvider
         self.localDataProvider = localDataProvider
@@ -47,6 +47,41 @@ final class ProfileViewModel: ObservableObject, ResponseHandler {
             }.store(in: &cancellationTokens)
     }
     
+    private func getUser() {
+        self.isRequesting = true
+        guard !self.user.username.isEmpty else {
+            self.isRequesting = false
+            return
+        }
+        
+        self.remoteDataProvider.getUser(userName: self.user.username) { [weak self] response in
+            
+            guard let self = self else { return }
+            self.isRequesting = false
+            
+            switch response {
+            case .success(let user):
+                // Logger.log(type: .info, "[User]: \(user)")
+                let notes = self.user.notes
+                self.user = user
+                self.user.notes = notes
+            case .failure(let error):
+                Logger.log(type: .error, "[API][Request] failed: \(error.status)")
+                self.displayMessage(error.status)
+            }
+        }
+    }
+    
+    private func displayMessage(_ msg: String) {
+        self.toastMessage = msg
+        self.showToast = true
+        
+        Utils.after(seconds: 5.0) { [weak self] in
+            guard let self else { return }
+            self.toastMessage = ""
+        }
+    }
+    
     func getLocalUser() {
         Task { [weak self] in
             guard let self = self else { return }
@@ -56,24 +91,6 @@ final class ProfileViewModel: ObservableObject, ResponseHandler {
                     guard let self = self else { return }
                     self.user = user
                 }
-            }
-        }
-    }
-    
-    private func getUser() {
-        self.isRequesting = true
-        
-        Task { [weak self] in
-            guard let self, !self.user.username.isEmpty else { return }
-            
-            let response = await self.remoteDataProvider.getUser(userName: self.user.username)
-            
-            await self.handleResponse(response: response) { [weak self] result in
-                guard let self else { return }
-                //Logger.log(type: .info, "[User]: \(result)")
-                let notes = self.user.notes
-                self.user = result
-                self.user.notes = notes
             }
         }
     }

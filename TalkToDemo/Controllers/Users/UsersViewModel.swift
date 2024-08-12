@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class UsersViewModel: ObservableObject, ResponseHandler {
+final class UsersViewModel: ObservableObject {
     @Published var isRequesting: Bool = false
     @Published var showToast: Bool = false
     @Published var lastUserId: Int = 0
@@ -70,28 +70,40 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
             }.store(in: &cancellationTokens)
     }
     
-    func getUsers() {
+    private func getUsers() {
         self.isRequesting = true
         
-        Task { [weak self] in
-            guard let self else { return }
-            let response = await self.remoteDataProvider.getUsers(
-                page: lastUserId,
-                size: pageSize
-            )
-            await self.handleResponse(response: response) { [weak self] result in
-                guard let self, !result.isEmpty else { return }
-                Logger.log(type: .info, "[Users] count: \(result.count)")
+        self.remoteDataProvider.getUsers(
+            page: self.lastUserId,
+            size: self.pageSize) { [weak self] result in
                 
+            guard let self = self else { return }
+            self.isRequesting = false
+            
+            switch result {
+            case .success(let users):
                 let initialCount = self.users.count
-                self.addUniqueUsers(result)
+                self.addUniqueUsers(users)
                 
                 if self.users.count > initialCount {
                     self.filteredUsers = self.users
                     self.reload = true
-                    self.addLocalUsers(result)
+                    self.addLocalUsers(users)
                 }
+            case .failure(let error):
+                Logger.log(type: .error, "[API][Request] failed: \(error.status)")
+                self.displayMessage(error.status)
             }
+        }
+    }
+    
+    private func displayMessage(_ msg: String) {
+        self.toastMessage = msg
+        self.showToast = true
+        
+        Utils.after(seconds: 5.0) { [weak self] in
+            guard let self else { return }
+            self.toastMessage = ""
         }
     }
     
