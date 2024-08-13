@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-class ImageDownloadProvider: ImageFetchable {
-    public static var shared = ImageDownloadProvider()
+class ImageDownloader: ImageDownloadable {
+    public static var shared = ImageDownloader()
     private let downloadQueue = DispatchQueue(
         label: "com.TalkToDemo.imageDownloadQueue", attributes: .concurrent
     )

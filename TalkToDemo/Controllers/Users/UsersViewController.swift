@@ -157,7 +157,7 @@ extension UsersViewController: UITableViewDataSourcePrefetching {
         for indexPath in indexPaths {
             let user = viewModel.filteredUsers[indexPath.row]
             if let urlString = user.avatar, let url = URL(string: urlString) {
-                ImageDownloadProvider.shared.downloadImage(from: url, completion: { _ in })
+                ImageDownloader.shared.downloadImage(from: url, completion: { _ in })
             }
         }
     }
@@ -166,7 +166,7 @@ extension UsersViewController: UITableViewDataSourcePrefetching {
         for indexPath in indexPaths {
             let user = viewModel.filteredUsers[indexPath.row]
             if let urlString = user.avatar, let url = URL(string: urlString) {
-                ImageDownloadProvider.shared.cancelDownload(for: url)
+                ImageDownloader.shared.cancelDownload(for: url)
             }
         }
     }
