@@ -57,7 +57,7 @@ struct ImageLoaderView: View {
 
 extension ImageLoaderView {
     private func downloadAndCache(_ url: URL) {
-        ImageDownloadProvider.shared.downloadImage(from: url) { image in
+        ImageDownloader.shared.downloadImage(from: url) { image in
             guard let uiImage = image else { return }
             self.image = Image(uiImage: uiImage)
         }

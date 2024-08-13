@@ -33,7 +33,7 @@ class InvertedCell: UITableViewCell, UserCell {
     }
     
     private func downloadAndCache(_ url: URL) {
-        ImageDownloadProvider.shared.downloadImage(from: url) { [weak self] image in
+        ImageDownloader.shared.downloadImage(from: url) { [weak self] image in
             guard let self = self else { return }
             if let invertedImage = image?.invertImage {
                 self.avatar.image = invertedImage

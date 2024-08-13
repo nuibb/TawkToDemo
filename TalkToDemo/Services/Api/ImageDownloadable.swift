@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ImageFetchable {
+protocol ImageDownloadable {
     func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void)
     func cancelDownload(for url: URL)
 }
