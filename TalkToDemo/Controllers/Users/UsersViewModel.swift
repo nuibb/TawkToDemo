@@ -35,7 +35,7 @@ final class UsersViewModel: ObservableObject {
         self.getLocalUsers()
         Utils.after(seconds: 1.0) { [weak self] in
             guard let self = self else { return }
-            self.getUsers()
+            self.getUsers(self.lastUserId)
         }
     }
     
@@ -45,7 +45,7 @@ final class UsersViewModel: ObservableObject {
             .sink { [weak self] newValue in
                 guard let self else { return }
                 if newValue > 0, self.lastUserId != newValue {
-                    self.getUsers()
+                    self.getUsers(newValue)
                 }
             }.store(in: &cancellationTokens)
         
@@ -72,11 +72,11 @@ final class UsersViewModel: ObservableObject {
             }.store(in: &cancellationTokens)
     }
     
-    private func getUsers() {
+    private func getUsers(_ pageIndex: Int) {
         self.isRequesting = true
         
         self.remoteDataProvider.getUsers(
-            page: self.lastUserId,
+            page: pageIndex,
             size: self.pageSize) { [weak self] result in
                 
                 guard let self = self else { return }
@@ -84,9 +84,9 @@ final class UsersViewModel: ObservableObject {
                 
                 switch result {
                 case .success(let users):
+                    Logger.log(type: .info, "[API][Request][Users] : \(users.count)")
                     let initialCount = self.users.count
                     self.addUniqueUsers(users)
-                    
                     if self.users.count > initialCount {
                         self.filteredUsers = self.users
                         self.reload = true
