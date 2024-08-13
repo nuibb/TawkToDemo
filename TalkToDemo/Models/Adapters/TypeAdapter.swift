@@ -13,6 +13,7 @@ extension UserData: Identifiable, User {
         let uniqueId = String(userId) + username
         return uniqueId == "0" ? UUID().uuidString : uniqueId
     }
+    var actualId: Int { userId ?? 0 }
     var name: String? { nil }
     var username: String { login ?? "" }
     var avatar: String? { avatarUrl }
@@ -37,6 +38,7 @@ extension UserDetails: Identifiable, User {
         let uniqueId = String(userId) + username
         return uniqueId == "0" ? UUID().uuidString : uniqueId
     }
+    var actualId: Int { userId ?? 0 }
     var username: String { login ?? "" }
     var avatar: String? { avatarUrl }
     var details: String? { bio }

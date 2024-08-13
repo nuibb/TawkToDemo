@@ -15,20 +15,9 @@ class NormalCell: UITableViewCell, UserCell {
     func configure(with user: User) {
         if let url = user.avatar, !url.isEmpty,
            let imageURL = URL(string: url) {
-            
-            /// Show cached image first if available
-            if let image = imageURL.loadImage() {
-                self.avatar.image = image
-            } else {
-                self.avatar.image = UIImage(named: "avatar")
-                self.downloadAndCache(imageURL)
-            }
-            
-        } else {
-            self.avatar.image = UIImage(named: "avatar")
+            self.downloadAndCache(imageURL)
         }
         
-        self.avatar.tintColor = UIColor(named: "primaryColor")
         self.userName.text = user.username
         self.userDetails.text = user.details ?? ""
         
@@ -44,17 +33,15 @@ class NormalCell: UITableViewCell, UserCell {
     }
     
     private func downloadAndCache(_ url: URL) {
-        Task {
-            do {
-                let image = try await url.downloadImage()
-                DispatchQueue.main.async { [weak self] in
-                    guard let self else { return }
-                    self.avatar.image = image
-                }
-                try url.cache(image)
-            } catch {
-                Logger.log(type: .error, "Image download failed with error: \(error.localizedDescription)")
-            }
+        ImageDownloadProvider.shared.downloadImage(from: url) { [weak self] image in
+            guard let self = self else { return }
+            self.avatar.image = image ?? UIImage(named: "avatar")
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.avatar.image = UIImage(named: "avatar")
+        self.avatar.tintColor = UIColor(named: "primaryColor")
     }
 }

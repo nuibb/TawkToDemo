@@ -36,6 +36,7 @@ class UsersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.tintColor = UIColor.primaryColor
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         self.configurations()
@@ -54,6 +55,10 @@ class UsersViewController: UIViewController {
         for cell in CellIdentifier.allCases {
             self.tableView.register(UINib(nibName: cell.description, bundle: nil), forCellReuseIdentifier: cell.identifier)
         }
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.prefetchDataSource = self
     }
     
     // MARK: Observers
@@ -61,9 +66,9 @@ class UsersViewController: UIViewController {
         viewModel.$isRequesting
             .sink { [weak self] newValue in
                 guard let self else { return }
-                if viewModel.isRequesting && !newValue {
+                if self.viewModel.isRequesting && !newValue {
                     self.hideLoading()
-                } else if !viewModel.isRequesting && newValue {
+                } else if !self.viewModel.isRequesting && newValue {
                     self.showLoading()
                 }
             }.store(in: &cancellationTokens)
@@ -88,6 +93,8 @@ class UsersViewController: UIViewController {
         self.spinner.stopAnimating()
     }
 }
+
+// MARK: - UITableViewDelegate and UITableViewDataSource
 
 extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -115,30 +122,58 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: user)
         
         if let last = self.viewModel.users.last,
-            user.id == last.id,
+           user.id == last.id,
+           viewModel.lastUserId != last.actualId,
            !spinner.isAnimating,
-            viewModel.loadMoreData,
            !searchController.isActive {
-            viewModel.pageIndex += 1
+            viewModel.lastUserId = last.actualId
         }
         
         return cell as! UITableViewCell
     }
-}
-
-extension UsersViewController {
+    
+    private func cellIdentifierFor(user: User, at indexPath: IndexPath) -> String {
+        if !user.notes.isEmpty {
+            return CellIdentifier.notes.identifier
+        } else if indexPath.row % 4 == 3 {
+            return CellIdentifier.inverted.identifier
+        } else {
+            return CellIdentifier.normal.identifier
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        guard indexPath.row < viewModel.filteredUsers.count, !spinner.isAnimating
-        else { return }
-        
+        guard indexPath.row < viewModel.filteredUsers.count, !spinner.isAnimating else { return }
         let user = self.viewModel.filteredUsers[indexPath.row]
         viewModel.updateReadStatus(user)
         RoutingService.shared.navigateToProfileView(user)
     }
 }
 
-// MARK: - UISearchView
+// MARK: - Prefetching
+
+extension UsersViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            let user = viewModel.filteredUsers[indexPath.row]
+            if let urlString = user.avatar, let url = URL(string: urlString) {
+                ImageDownloadProvider.shared.downloadImage(from: url, completion: { _ in })
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            let user = viewModel.filteredUsers[indexPath.row]
+            if let urlString = user.avatar, let url = URL(string: urlString) {
+                ImageDownloadProvider.shared.cancelDownload(for: url)
+            }
+        }
+    }
+}
+
+// MARK: - Search
+
 extension UsersViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
@@ -165,19 +200,6 @@ extension UsersViewController: UISearchResultsUpdating, UISearchBarDelegate {
                 lowercasedNotes.contains(lowercasedSearchText)
             }
         }
-        
         self.tableView.reloadData()
-    }
-}
-
-extension UsersViewController {
-    private func cellIdentifierFor(user: User, at indexPath: IndexPath) -> String {
-        if !user.notes.isEmpty {
-            return CellIdentifier.notes.identifier
-        } else if indexPath.row % 4 == 3 {
-            return CellIdentifier.inverted.identifier
-        } else {
-            return CellIdentifier.normal.identifier
-        }
     }
 }

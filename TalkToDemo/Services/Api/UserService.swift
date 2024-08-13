@@ -7,32 +7,36 @@
 
 import Foundation
 
-protocol UserService: HttpClient {
-    func getUsers(page: Int, size: Int) async -> Swift.Result<[UserData], RequestError>
+protocol UserService: HttpClient, NetworkRequestManaging {
+    func getUsers(page: Int, size: Int, completion: @escaping (Swift.Result<[UserData], RequestError>) -> Void)
     
-    func getUser(userName: String) async -> Swift.Result<UserDetails, RequestError>
+    func getUser(userName: String, completion: @escaping (Swift.Result<UserDetails, RequestError>) -> Void)
 }
 
 extension UserService {
-    func getUsers(page: Int, size: Int) async -> Swift.Result<[UserData], RequestError> {
+    func getUsers(page: Int, size: Int, completion: @escaping (Swift.Result<[UserData], RequestError>) -> Void) {
         if self.networkMonitor.isConnected {
-            return await getFrom(
-                endpoint: UserEndPoint.users(page: page, size: size),
-                model: UserData.self
-            )
+            enqueue({
+                await self.getFrom(
+                    endpoint: UserEndPoint.users(page: page, size: size),
+                    model: UserData.self
+                )
+            }, completion: completion)
         } else {
-            return .failure(.networkNotAvailable)
+            completion(.failure(.networkNotAvailable))
         }
     }
     
-    func getUser(userName: String) async -> Swift.Result<UserDetails, RequestError> {
+    func getUser(userName: String, completion: @escaping (Swift.Result<UserDetails, RequestError>) -> Void) {
         if self.networkMonitor.isConnected {
-            return await getFrom(
-                endpoint: UserEndPoint.user(userName: userName),
-                model: UserDetails.self
-            )
+            enqueue({
+                await self.getFrom(
+                    endpoint: UserEndPoint.user(userName: userName),
+                    model: UserDetails.self
+                )
+            }, completion: completion)
         } else {
-            return .failure(.networkNotAvailable)
+            completion(.failure(.networkNotAvailable))
         }
     }
 }

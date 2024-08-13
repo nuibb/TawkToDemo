@@ -14,7 +14,7 @@ struct ProfileView: View {
         ZStack(alignment: .center) {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .center, spacing: 16) {
-                    ImageLoader(viewModel: viewModel)
+                    ImageLoaderView(viewModel: viewModel)
                     
                     HStack(alignment: .center) {
                         Spacer()

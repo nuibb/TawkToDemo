@@ -8,10 +8,10 @@
 import Foundation
 import Combine
 
-final class UsersViewModel: ObservableObject, ResponseHandler {
+final class UsersViewModel: ObservableObject {
     @Published var isRequesting: Bool = false
     @Published var showToast: Bool = false
-    @Published var pageIndex: Int = 0
+    @Published var lastUserId: Int = 0
     @Published var reload: Bool = false
     
     @Published var filteredUsers: [User] = []
@@ -19,7 +19,6 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
     
     var toastMessage: String = ""
     var pageSize = 10
-    var loadMoreData: Bool = false
     
     private var cancellationTokens = Set<AnyCancellable>()
     internal let remoteDataProvider: UserService
@@ -42,23 +41,25 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
     
     private func addObservers() {
         /// Pagination while pageIndex is being changed
-        $pageIndex
-            .sink { [weak self] newIndex in
+        $lastUserId
+            .sink { [weak self] newValue in
                 guard let self else { return }
-                if newIndex > self.pageIndex {
+                if newValue > 0, self.lastUserId != newValue {
                     self.getUsers()
                 }
             }.store(in: &cancellationTokens)
         
-        /// Automatically retry loading data once the connection is available.
-        self.remoteDataProvider.networkMonitor.$isConnected
+        /// Automatically retry loading data once the internet connection is available.
+        remoteDataProvider.networkMonitor.$isConnected
+            .debounce(for: .seconds(5), scheduler: DispatchQueue.main)
+            .removeDuplicates() /// Prevents unnecessary loading if status doesn't change
             .sink { [weak self] status in
                 guard let self else { return }
-                if self.remoteDataProvider.networkMonitor.isConnected != status,
-                   self.remoteDataProvider.networkMonitor.isConnected {
-                    self.pageIndex = 0 /// probable bug, fix later
+                if !status, let lastUser = users.last {
+                    self.lastUserId = lastUser.actualId
                 }
-            }.store(in: &cancellationTokens)
+            }
+            .store(in: &cancellationTokens)
         
         /// Show toast
         $showToast
@@ -71,29 +72,40 @@ final class UsersViewModel: ObservableObject, ResponseHandler {
             }.store(in: &cancellationTokens)
     }
     
-    func getUsers() {
+    private func getUsers() {
         self.isRequesting = true
         
-        Task { [weak self] in
-            guard let self else { return }
-            let response = await self.remoteDataProvider.getUsers(
-                page: pageIndex,
-                size: pageSize
-            )
-            await self.handleResponse(response: response) { [weak self] result in
-                guard let self, !result.isEmpty else { return }
-                self.loadMoreData = true
-                Logger.log(type: .info, "[Users] count: \(result.count)")
+        self.remoteDataProvider.getUsers(
+            page: self.lastUserId,
+            size: self.pageSize) { [weak self] result in
                 
-                let initialCount = self.users.count
-                self.addUniqueUsers(result)
+                guard let self = self else { return }
+                self.isRequesting = false
                 
-                if self.users.count > initialCount {
-                    self.filteredUsers = self.users
-                    self.reload = true
-                    self.addLocalUsers(result)
+                switch result {
+                case .success(let users):
+                    let initialCount = self.users.count
+                    self.addUniqueUsers(users)
+                    
+                    if self.users.count > initialCount {
+                        self.filteredUsers = self.users
+                        self.reload = true
+                        self.addLocalUsers(users)
+                    }
+                case .failure(let error):
+                    Logger.log(type: .error, "[API][Request] failed: \(error.status)")
+                    self.displayMessage(error.status)
                 }
             }
+    }
+    
+    private func displayMessage(_ msg: String) {
+        self.toastMessage = msg
+        self.showToast = true
+        
+        Utils.after(seconds: 5.0) { [weak self] in
+            guard let self else { return }
+            self.toastMessage = ""
         }
     }
     

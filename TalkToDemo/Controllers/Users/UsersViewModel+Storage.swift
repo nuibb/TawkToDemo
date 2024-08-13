@@ -31,8 +31,12 @@ extension UsersViewModel {
             
             guard !users.isEmpty else { return }
             Logger.log(type: .info, "[Storage][Users] count: \(users.count)")
-            self.users = users
-            self.filteredUsers = users
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.users = users
+                self.filteredUsers = users
+                self.reload = true
+            }
         }
     }
     

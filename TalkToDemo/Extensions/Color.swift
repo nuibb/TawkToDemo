@@ -30,7 +30,7 @@ extension Color {
 
 // Define Semantic Colors
 extension Color {
-    static let primaryColor = Color("PrimaryColor")
+    static let primaryColor = Color("DefaultColor")
     static let backgroundColor = Color("BackgroundColor")
     static let borderColor = Color(hex: "E4E4E4")
 }
@@ -51,7 +51,7 @@ extension UIColor {
 }
 
 extension UIColor {
-    static let primaryColor = UIColor(named: "PrimaryColor")
+    static let primaryColor = UIColor(named: "DefaultColor")
     static let backgroundColor = UIColor(named: "BackgroundColor")
     static let borderColor = UIColor(hex: "E4E4E4")
 }

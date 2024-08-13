@@ -97,7 +97,6 @@ class UsersViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.users.count, 2)
         XCTAssertEqual(viewModel.users.first?.username, "testuser1")
         XCTAssertEqual(viewModel.filteredUsers.count, 2)
-        XCTAssertTrue(viewModel.loadMoreData)
     }
     
     func testGetUsers_withEmptyResponse() async throws {
@@ -187,6 +186,5 @@ class UsersViewModelTests: XCTestCase {
         
         // Assert
         XCTAssertEqual(viewModel.users.count, 0)
-        XCTAssertFalse(viewModel.loadMoreData)
     }
 }
