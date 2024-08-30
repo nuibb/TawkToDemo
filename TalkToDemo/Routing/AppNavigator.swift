@@ -39,5 +39,12 @@ extension AppNavigator {
     func hideNavigationTitle() {
         UIApplication.topViewController()?.navigationController?.navigationBar.topItem?.title = ""
     }
+    
+    func showShimmerEffect() {
+        let controller = HostingController(
+            rootView: ShimmerEffectView()
+        )
+        self.present(controller)
+    }
 }
 

@@ -19,7 +19,8 @@ class ImageDownloader: ImageDownloadable {
     func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
         /// Check memory cache first
         if let cachedImage = url.loadImage() {
-            completion(cachedImage)
+            /// resize for memory optimisation
+            completion(cachedImage.resize(200, 200))
             return
         }
         
@@ -42,7 +43,8 @@ class ImageDownloader: ImageDownloadable {
                     let image = try await url.downloadImage()
                     try url.cache(image)
                     DispatchQueue.main.async {
-                        completion(image)
+                        /// resize for memory optimisation
+                        completion(image.resize(200, 200))
                     }
                 } catch {
                     Logger.log(type: .error, "Image download failed: \(error.localizedDescription)")

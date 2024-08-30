@@ -146,7 +146,8 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
         guard indexPath.row < viewModel.filteredUsers.count, !spinner.isAnimating else { return }
         let user = self.viewModel.filteredUsers[indexPath.row]
         viewModel.updateReadStatus(user)
-        RoutingService.shared.navigateToProfileView(user)
+        //RoutingService.shared.navigateToProfileView(user)
+        RoutingService.shared.showShimmerEffect()
     }
 }
 
