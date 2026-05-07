@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C344B832FAC61FF00BB204B /* StorageDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3C344B812FAC61FF00BB204B /* StorageDataModel.xcdatamodeld */; };
 		5203910F2C4CC72500C5F3CC /* StorageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5203910E2C4CC72500C5F3CC /* StorageStatus.swift */; };
 		520391112C4CC75000C5F3CC /* BaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520391102C4CC75000C5F3CC /* BaseRepository.swift */; };
 		520391132C4CC76D00C5F3CC /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520391122C4CC76D00C5F3CC /* PersistentStorage.swift */; };
@@ -83,7 +84,6 @@
 		52727F312C4E1721007C3097 /* NotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52727F302C4E1721007C3097 /* NotesCell.swift */; };
 		52727F352C4E1D65007C3097 /* InvertedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52727F342C4E1D65007C3097 /* InvertedCell.xib */; };
 		52727F372C4E1D8E007C3097 /* InvertedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52727F362C4E1D8E007C3097 /* InvertedCell.swift */; };
-		52727F3B2C4E3037007C3097 /* StorageDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52727F392C4E3037007C3097 /* StorageDataModel.xcdatamodeld */; };
 		528559AC2C50C9120072F933 /* CellIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528559AB2C50C9120072F933 /* CellIdentifier.swift */; };
 		52DA7CDC2C54D00D00E26827 /* MockLocalDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA7CDB2C54D00D00E26827 /* MockLocalDataProvider.swift */; };
 		52DA7CDF2C54D12200E26827 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA7CDE2C54D12200E26827 /* TestCoreDataStack.swift */; };
@@ -111,6 +111,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C344B822FAC61FF00BB204B /* StorageDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StorageDataModel.xcdatamodel; sourceTree = "<group>"; };
 		5203910E2C4CC72500C5F3CC /* StorageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageStatus.swift; sourceTree = "<group>"; };
 		520391102C4CC75000C5F3CC /* BaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRepository.swift; sourceTree = "<group>"; };
 		520391122C4CC76D00C5F3CC /* PersistentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
@@ -191,7 +192,6 @@
 		52727F302C4E1721007C3097 /* NotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCell.swift; sourceTree = "<group>"; };
 		52727F342C4E1D65007C3097 /* InvertedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InvertedCell.xib; sourceTree = "<group>"; };
 		52727F362C4E1D8E007C3097 /* InvertedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertedCell.swift; sourceTree = "<group>"; };
-		52727F3A2C4E3037007C3097 /* StorageDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StorageDataModel.xcdatamodel; sourceTree = "<group>"; };
 		528559AB2C50C9120072F933 /* CellIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellIdentifier.swift; sourceTree = "<group>"; };
 		52DA7CDB2C54D00D00E26827 /* MockLocalDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalDataProvider.swift; sourceTree = "<group>"; };
 		52DA7CDE2C54D12200E26827 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
@@ -360,7 +360,7 @@
 		520840352C4ACFBD00B8F252 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				52727F392C4E3037007C3097 /* StorageDataModel.xcdatamodeld */,
+				3C344B812FAC61FF00BB204B /* StorageDataModel.xcdatamodeld */,
 				520840052C4AAA9200B8F252 /* Assets.xcassets */,
 				520840502C4B562F00B8F252 /* Localizable.xcstrings */,
 			);
@@ -831,11 +831,11 @@
 				520391382C4CDA1500C5F3CC /* User.swift in Sources */,
 				525387442C4BA4EA00688D62 /* URL.swift in Sources */,
 				520840012C4AAA9100B8F252 /* UsersViewController.swift in Sources */,
-				52727F3B2C4E3037007C3097 /* StorageDataModel.xcdatamodeld in Sources */,
 				520391682C4D316200C5F3CC /* StorageDataProvider.swift in Sources */,
 				5208404C2C4B532500B8F252 /* ProfileViewModel.swift in Sources */,
 				525387512C4BC64E00688D62 /* Font.swift in Sources */,
 				520840452C4B4EAA00B8F252 /* HostingController.swift in Sources */,
+				3C344B832FAC61FF00BB204B /* StorageDataModel.xcdatamodeld in Sources */,
 				5253873A2C4B84C800688D62 /* Utils.swift in Sources */,
 				52083FFD2C4AAA9100B8F252 /* AppDelegate.swift in Sources */,
 				520840602C4B680900B8F252 /* String.swift in Sources */,
@@ -1203,14 +1203,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		52727F392C4E3037007C3097 /* StorageDataModel.xcdatamodeld */ = {
+		3C344B812FAC61FF00BB204B /* StorageDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				52727F3A2C4E3037007C3097 /* StorageDataModel.xcdatamodel */,
+				3C344B822FAC61FF00BB204B /* StorageDataModel.xcdatamodel */,
 			);
-			currentVersion = 52727F3A2C4E3037007C3097 /* StorageDataModel.xcdatamodel */;
-			name = StorageDataModel.xcdatamodeld;
-			path = /Users/macbookpro/Offices/Nuibb/iOS/TalkToDemo/TalkToDemo/Resources/StorageDataModel.xcdatamodeld;
+			currentVersion = 3C344B822FAC61FF00BB204B /* StorageDataModel.xcdatamodel */;
+			path = StorageDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
